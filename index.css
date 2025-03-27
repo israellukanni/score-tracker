@@ -92,3 +92,32 @@ button:hover {
   text-align: center;
   align-items: center;
 }
+@media(max-width: 700px){
+  body {
+    font-size: 16px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  #scoreboard {
+    transform: scale(0.7); /* Adjust the value as needed */
+    transform-origin: center;
+    /* width:100%;
+    max-width: 100%; */
+    padding: 10px;
+    font-size: 50px;
+    /* flex-direction: column; */
+  }
+  .scores {
+    font-size: 100px;
+  }
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  textarea {
+    width: 140px;
+    height: 12px;
+    padding: 10px;
+  }
+}
