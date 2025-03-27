@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Air Hockey Score Tracker</title>
+    <link rel = "stylesheet" href = "airhockeystyle.css">
+  </head>
+  <body>
+    <h1 id = "title"> Air Hockey Score Tracker</h1>
+    <div id = "scoreboard">
+      <div  id = "score1" >
+        <div class = "textContainers" id="textContainer1">
+          <div> <textarea class = "names" id = "name1" placeholder="Name" onkeydown="checkForEnter(event,1)"></textarea> </div>
+          <div> <button onclick = "enterName(1)">Enter</button> </div>
+        </div>
+
+        <p id = "s1" class = "scores">0</p>
+        <div class = "arrows">
+          <!-- <p class="upArrow">up</p> <p>down</p> -->
+          <img src = "hockeyimg/uparrow.png" class = "upArrow" onclick = "increaseScore('s1','name1')" style="width: 80px; height: 80px; ;">
+          <img src = "hockeyimg/downarrow.png" class = "downArrow" onclick = "decreaseScore('s1')" style="width: 80px; height: 80px;">
+        </div>
+
+      </div>
+      <div  id = "score2" >
+        <div class = "textContainers" id="textContainer2">
+          <div> <textarea class = "names" id = "name2" placeholder="Name" onkeydown="checkForEnter(event,2)"></textarea> </div>
+          <div> <button onclick = "enterName(2)">Enter</button> </div>
+        </div>
+        <p id = "s2" class = "scores">0</p>
+        <div class = "arrows">
+          <!-- <button class="upArrow">up</p> <p>down</p> -->
+          <img src = "hockeyimg/uparrow.png" class = "upArrow" onclick = "increaseScore('s2','name2')" style="width: 80px; height: 80px; ;">
+          <img src = "hockeyimg/downarrow.png" class = "downArrow" onclick = "decreaseScore('s2')" style="width: 80px; height: 80px;">
+        </div>
+      </div>
+    </div>
+    <div id = "refreshButton"></div>
+  </body>
+</html>
+
+<script>
+  var name1 = 'Player 1'
+  var name2 = 'Player 2'
+  function increaseScore(id,nameid){
+    let number = Number(document.getElementById(id).textContent) + 1
+    // console.log(number)
+
+    document.getElementById(id).innerHTML = String(number)
+    if (gameOver(number)){
+      if (nameid == 'name1'){
+        newname = name1
+      }
+      else(
+        newname = name2
+      )
+      document.getElementById('scoreboard').innerHTML = newname + " wins!"
+      document.getElementById('refreshButton').innerHTML = "<button type='button' onclick='window.location.reload();'>Restart Game</button>"
+    }
+
+  }
+  function decreaseScore(id){
+    let number = Number(document.getElementById(id).textContent)
+    if (number> 0){
+      number -= 1
+      document.getElementById(id).innerHTML = String(number)
+    }
+  }
+  function gameOver(score){
+    if (score > 9)
+      return true
+  }
+  function enterName(num){
+    if (num == 1){
+      name1 = document.getElementById('name1').value
+      replaceTextContainer(num)
+    }
+    else {
+      name2 = document.getElementById('name2').value
+      replaceTextContainer(num)
+    }
+  }
+  function replaceTextContainer(num){
+    if (num ==1){
+      document.getElementById("textContainer1").innerHTML = "<p>" + name1 + "</p>"
+    }
+    else{
+      document.getElementById("textContainer2").innerHTML = "<p>" + name2 + "</p>"
+    }
+  }
+  function checkForEnter(event,num){
+    if(event.key == "Enter"){
+      event.preventDefault()
+      enterName(num)
+    }
+  }
+</script>
