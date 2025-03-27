@@ -6,10 +6,13 @@
   </head>
   <body>
     <h1 id = "title"> Air Hockey Score Tracker</h1>
+    <div id = "targetscorediv">
+      <p>Set target score:</p> <textarea id = "targetscore" placeholder = "'10'" onkeydown="checkForEnterScore(event)"></textarea>
+    </div>
     <div id = "scoreboard">
       <div  id = "score1" >
         <div class = "textContainers" id="textContainer1">
-          <div> <textarea class = "names" id = "name1" placeholder="Name" onkeydown="checkForEnter(event,1)"></textarea> </div>
+          <div> <textarea class = "names" id = "name1" placeholder="Enter Name (Default 'Player 1')" onkeydown="checkForEnter(event,1)"></textarea> </div>
           <div> <button onclick = "enterName(1)">Enter</button> </div>
         </div>
 
@@ -23,7 +26,7 @@
       </div>
       <div  id = "score2" >
         <div class = "textContainers" id="textContainer2">
-          <div> <textarea class = "names" id = "name2" placeholder="Name" onkeydown="checkForEnter(event,2)"></textarea> </div>
+          <div> <textarea class = "names" id = "name2" placeholder="Enter Name (Default 'Player 2')" onkeydown="checkForEnter(event,2)"></textarea> </div>
           <div> <button onclick = "enterName(2)">Enter</button> </div>
         </div>
         <p id = "s2" class = "scores">0</p>
@@ -41,6 +44,12 @@
 <script>
   var name1 = 'Player 1'
   var name2 = 'Player 2'
+  var finalScore = Number(document.getElementById('targetscore').value)
+  console.log(finalScore)
+  if (finalScore <= 0){
+    finalScore = 10
+  }
+
   function increaseScore(id,nameid){
     let number = Number(document.getElementById(id).textContent) + 1
     // console.log(number)
@@ -64,20 +73,38 @@
       number -= 1
       document.getElementById(id).innerHTML = String(number)
     }
+    else{
+      alert("Score cannot go below zero.")
+    }
   }
   function gameOver(score){
-    if (score > 9)
+    if (score > finalScore-1)
       return true
   }
   function enterName(num){
     if (num == 1){
       name1 = document.getElementById('name1').value
+      if (!name1 || name1 === ""){
+        name1 = "Player 1"
+      }
       replaceTextContainer(num)
     }
     else {
       name2 = document.getElementById('name2').value
+      if (!name2 || name2 === ""){
+        name2 = "Player 2"
+      }
       replaceTextContainer(num)
     }
+  }
+  function replaceTargetScore(){
+    score = document.getElementById('targetscore').value
+    finalScore = Number(score)
+    if (finalScore <=0 ){
+      alert("Please enter a valid target score (greater than 0).");
+      return
+    }
+    document.getElementById('targetscorediv').innerHTML = "<p>The target score is " + score+ "<p>" 
   }
   function replaceTextContainer(num){
     if (num ==1){
@@ -91,6 +118,13 @@
     if(event.key == "Enter"){
       event.preventDefault()
       enterName(num)
+    }
+  }
+  
+  function checkForEnterScore(event){
+    if (event.key == "Enter"){
+      event.preventDefault()
+      replaceTargetScore()
     }
   }
 </script>
