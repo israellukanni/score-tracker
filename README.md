@@ -5,3 +5,4 @@ Whether you’re managing a sports league, hosting a friendly game night, or tra
 this app provides a simple, intuitive interface to record, update, and view scores in real-time. With features like score history, 
 customizable categories, and the ability to add multiple players, the app makes score management easy and fun. 
 Stay organized, stay competitive, and never lose track of your progress!
+Check out deployed site here: https://glowing-malasada-8d937a.netlify.app/
